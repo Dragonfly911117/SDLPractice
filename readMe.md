@@ -1,8 +1,8 @@
 ## Dev environment:
-* OS: Windows11
+* OS: Windows11/Arch
 * IDE: CLion
 * Package manager: vcpkg 
-* Build tool:MSVC2017
+
 
 
 ## Progress
