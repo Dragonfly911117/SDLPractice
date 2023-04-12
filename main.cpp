@@ -45,6 +45,6 @@ int main(int argc, char*argv[]) {
             }
         }
     }
-    close(window, img);
+    close(window, img, keyImages);
     return 0;
 }

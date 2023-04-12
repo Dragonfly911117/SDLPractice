@@ -14,8 +14,10 @@
 #include <vector>
 
 bool init(SDL_Window*& window, SDL_Surface*& surface);
+SDL_Surface*loadSurface(const char*path);
 bool loadMedia(std::vector<SDL_Surface*>& vec);
-void close(SDL_Window*& window, SDL_Surface*& img);
+void close(SDL_Window*& window, SDL_Surface*& img, std::vector<SDL_Surface*>& vec);
+
 enum keyPress {
     KEY_PRESS_NONE = 0,
     KEY_PRESS_UP,

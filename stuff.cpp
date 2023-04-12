@@ -22,42 +22,39 @@ bool init(SDL_Window*& window, SDL_Surface*& surface) {
 }
 
 bool loadMedia(std::vector<SDL_Surface*>& vec) {
-    vec.emplace_back(SDL_LoadBMP("../../resource/press.bmp"));
-    if (vec[0] == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "press.bmp", SDL_GetError());
-        return false;
+    vec.emplace_back(loadSurface("../../resource/none.bmp"));
+    vec.emplace_back(loadSurface("../../resource/up.bmp"));
+    vec.emplace_back(loadSurface("../../resource/down.bmp"));
+    vec.emplace_back(loadSurface("../../resource/left.bmp"));
+    vec.emplace_back(loadSurface("../../resource/right.bmp"));
+    for (const auto& img: vec) {
+        if (img == nullptr) {
+            return false;
+        }
     }
-    vec.emplace_back(SDL_LoadBMP("../../resource/up.bmp"));
-    if (vec[1] == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "up.bmp", SDL_GetError());
-        return false;
-    }
-    vec.emplace_back(SDL_LoadBMP("../../resource/down.bmp"));
-    if (vec[2] == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "down.bmp", SDL_GetError());
-        return false;
-    }
-    vec.emplace_back(SDL_LoadBMP("../../resource/left.bmp"));
-    if (vec[3] == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "left.bmp", SDL_GetError());
-        return false;
-    }
-    vec.emplace_back(SDL_LoadBMP("../../resource/right.bmp"));
-    if (vec[4] == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "right.bmp", SDL_GetError());
-        return false;
-    }
-
-
     return true;
 }
 
-void close(SDL_Window*& window, SDL_Surface*& img) {
+void close(SDL_Window*& window, SDL_Surface*& img, std::vector<SDL_Surface*>& vec) {
     SDL_FreeSurface(img);
     img = nullptr;
+
+    for (auto& img: vec) {
+        SDL_FreeSurface(img);
+        img = nullptr;
+    }
+    vec.clear();
 
     SDL_DestroyWindow(window);
     window = nullptr;
 
     SDL_Quit();
+}
+
+SDL_Surface*loadSurface(const char*path) {
+    SDL_Surface*loadedSurface = SDL_LoadBMP(path);
+    if (loadedSurface == nullptr) {
+        printf("Unable to load image %s! SDL Error: %s\n", path, SDL_GetError());
+    }
+    return loadedSurface;
 }
