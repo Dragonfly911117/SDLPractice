@@ -39,9 +39,9 @@ void close(SDL_Window*& window, SDL_Surface*& img, std::vector<SDL_Surface*>& ve
     SDL_FreeSurface(img);
     img = nullptr;
 
-    for (auto& img: vec) {
-        SDL_FreeSurface(img);
-        img = nullptr;
+    for (auto& surface: vec) {
+        SDL_FreeSurface(surface);
+        surface = nullptr;
     }
     vec.clear();
 
