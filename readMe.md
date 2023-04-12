@@ -1,4 +1,4 @@
-## Dev environment:
+## Environment:
 * OS: Windows11/Arch
 * IDE: CLion
 * Package manager: vcpkg 
