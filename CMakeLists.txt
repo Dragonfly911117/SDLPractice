@@ -8,7 +8,7 @@ find_package(SDL2_ttf CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 
 
-add_executable(${PROJECT_NAME} main.cpp birthAndDeath.cpp)
+add_executable(${PROJECT_NAME} main.cpp stuff.cpp)
 
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
