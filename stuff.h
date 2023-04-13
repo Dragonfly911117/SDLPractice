@@ -15,7 +15,7 @@
 
 bool init(SDL_Window*& window, SDL_Surface*& surface);
 SDL_Surface*loadSurface(const char*path);
-bool loadMedia(std::vector<SDL_Surface*>& vec);
+bool loadMedia(std::vector<SDL_Surface*>& vec, SDL_Surface*& baseSurface);
 void close(SDL_Window*& window, SDL_Surface*& img, std::vector<SDL_Surface*>& vec);
 
 enum keyPress {

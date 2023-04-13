@@ -1,4 +1,5 @@
 ## Environment:
+
 * OS: Windows11/Arch
 * IDE: CLion
 * Package manager: vcpkg
@@ -9,6 +10,7 @@
 * [Lesson 02 Getting an Image on the Screen](https://lazyfoo.net/tutorials/SDL/02_getting_an_image_on_the_screen/index.php)
 * [Lesson 03 Event Driven Programming](https://lazyfoo.net/tutorials/SDL/03_event_driven_programming/index.php)
 * [Lesson 04 Key Presses](https://lazyfoo.net/tutorials/SDL/04_key_presses/index.php)
+* [Lesson 05 Optimized Surface Loading and Soft Stretching](https://lazyfoo.net/tutorials/SDL/05_optimized_surface_loading_and_soft_stretching/index.php)
 
 ## Caution
 

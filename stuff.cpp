@@ -3,7 +3,6 @@
 //
 
 #include "stuff.h"
-#include "SDL_surface.h"
 
 
 bool init(SDL_Window*& window, SDL_Surface*& surface) {
@@ -21,12 +20,24 @@ bool init(SDL_Window*& window, SDL_Surface*& surface) {
     return true;
 }
 
-bool loadMedia(std::vector<SDL_Surface*>& vec) {
-    vec.emplace_back(loadSurface("../../resource/none.bmp"));
-    vec.emplace_back(loadSurface("../../resource/up.bmp"));
-    vec.emplace_back(loadSurface("../../resource/down.bmp"));
-    vec.emplace_back(loadSurface("../../resource/left.bmp"));
-    vec.emplace_back(loadSurface("../../resource/right.bmp"));
+bool loadMedia(std::vector<SDL_Surface*>& vec, SDL_Surface*& baseSurface) {
+    SDL_Surface*temp;
+    temp = loadSurface("../../resource/none.bmp");
+    vec.emplace_back(SDL_ConvertSurface(temp, baseSurface->format, 0));
+    SDL_FreeSurface(temp);
+    temp = loadSurface("../../resource/up.bmp");
+    vec.emplace_back(SDL_ConvertSurface(temp, baseSurface->format, 0));
+    SDL_FreeSurface(temp);
+    temp = loadSurface("../../resource/down.bmp");
+    vec.emplace_back(SDL_ConvertSurface(temp, baseSurface->format, 0));
+    SDL_FreeSurface(temp);
+    temp = loadSurface("../../resource/left.bmp");
+    vec.emplace_back(SDL_ConvertSurface(temp, baseSurface->format, 0));
+    SDL_FreeSurface(temp);
+    temp = loadSurface("../../resource/right.bmp");
+    vec.emplace_back(SDL_ConvertSurface(temp, baseSurface->format, 0));
+    SDL_FreeSurface(temp);
+
     for (const auto& img: vec) {
         if (img == nullptr) {
             return false;

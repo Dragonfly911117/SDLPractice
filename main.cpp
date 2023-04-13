@@ -1,5 +1,6 @@
 #include "SDL_events.h"
 #include "SDL_pixels.h"
+#include "SDL_rect.h"
 #include "SDL_surface.h"
 #include "SDL_video.h"
 #include <SDL.h>
@@ -8,7 +9,7 @@
 #include "config.h"
 #include "stuff.h"
 
-int main(int argc, char*argv[]) {
+int main() {
     SDL_Window*window = nullptr;
     SDL_Surface*screenSurface = nullptr;
     std::vector<SDL_Surface*> keyImages;
@@ -16,13 +17,21 @@ int main(int argc, char*argv[]) {
         std::cout << "Failed to initialize\n";
         return -1;
     }
-    if (not loadMedia(keyImages)) {
+    if (not loadMedia(keyImages, screenSurface)) {
         std::cout << "Failed to load media\n";
         return -1;
     }
+
+    SDL_Rect stretched;
+    stretched.x = 0;
+    stretched.y = 0;
+    stretched.w = WINDOW_WIDTH;
+    stretched.h = WINDOW_HEIGHT;
+
     SDL_Surface*img = keyImages[0];
-    SDL_BlitSurface(img, nullptr, screenSurface, nullptr);
+    SDL_BlitScaled(img, nullptr, screenSurface, &stretched);
     SDL_UpdateWindowSurface(window);
+
     bool quit = false;
     SDL_Event e;
     while (not quit) {
@@ -40,7 +49,7 @@ int main(int argc, char*argv[]) {
                     quit = true;
                 else
                     img = keyImages[KEY_PRESS_NONE];
-                SDL_BlitSurface(img, nullptr, screenSurface, nullptr);
+                SDL_BlitScaled(img, nullptr, screenSurface, &stretched);
                 SDL_UpdateWindowSurface(window);
             }
         }
