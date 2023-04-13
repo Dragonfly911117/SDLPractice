@@ -12,12 +12,12 @@
 int main() {
     SDL_Window*window = nullptr;
     SDL_Surface*screenSurface = nullptr;
-    std::vector<SDL_Surface*> keyImages;
+    SDL_Surface* img = nullptr;
     if (not init(window, screenSurface)) {
         std::cout << "Failed to initialize\n";
         return -1;
     }
-    if (not loadMedia(keyImages, screenSurface)) {
+    if (not loadMedia(img, screenSurface)) {
         std::cout << "Failed to load media\n";
         return -1;
     }
@@ -28,7 +28,6 @@ int main() {
     stretched.w = WINDOW_WIDTH;
     stretched.h = WINDOW_HEIGHT;
 
-    SDL_Surface*img = keyImages[0];
     SDL_BlitScaled(img, nullptr, screenSurface, &stretched);
     SDL_UpdateWindowSurface(window);
 
@@ -37,23 +36,13 @@ int main() {
     while (not quit) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.sym == SDLK_UP)
-                    img = keyImages[KEY_PRESS_UP];
-                else if (e.key.keysym.sym == SDLK_DOWN)
-                    img = keyImages[KEY_PRESS_DOWN];
-                else if (e.key.keysym.sym == SDLK_LEFT)
-                    img = keyImages[KEY_PRESS_LEFT];
-                else if (e.key.keysym.sym == SDLK_RIGHT)
-                    img = keyImages[KEY_PRESS_RIGHT];
-                else if (e.key.keysym.sym == SDLK_ESCAPE)
+                if (e.key.keysym.sym == SDLK_ESCAPE)
                     quit = true;
-                else
-                    img = keyImages[KEY_PRESS_NONE];
-                SDL_BlitScaled(img, nullptr, screenSurface, &stretched);
-                SDL_UpdateWindowSurface(window);
+//                SDL_BlitScaled(img, nullptr, screenSurface, &stretched);
+//                SDL_UpdateWindowSurface(window);
             }
         }
     }
-    close(window, img, keyImages);
+    close(window, img);
     return 0;
 }

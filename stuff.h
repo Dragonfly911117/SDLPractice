@@ -9,14 +9,15 @@
 #include "SDL_stdinc.h"
 #include "SDL_surface.h"
 #include "SDL_video.h"
+#include "SDL_image.h"
 #include "config.h"
 #include <SDL.h>
 #include <vector>
 
 bool init(SDL_Window*& window, SDL_Surface*& surface);
-SDL_Surface*loadSurface(const char*path);
-bool loadMedia(std::vector<SDL_Surface*>& vec, SDL_Surface*& baseSurface);
-void close(SDL_Window*& window, SDL_Surface*& img, std::vector<SDL_Surface*>& vec);
+SDL_Surface*loadSurface(const std::string& path);
+bool loadMedia(SDL_Surface*& pngSurface, SDL_Surface*& baseSurface);
+void close(SDL_Window*& window, SDL_Surface*& img);
 
 enum keyPress {
     KEY_PRESS_NONE = 0,

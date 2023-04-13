@@ -11,6 +11,7 @@
 * [Lesson 03 Event Driven Programming](https://lazyfoo.net/tutorials/SDL/03_event_driven_programming/index.php)
 * [Lesson 04 Key Presses](https://lazyfoo.net/tutorials/SDL/04_key_presses/index.php)
 * [Lesson 05 Optimized Surface Loading and Soft Stretching](https://lazyfoo.net/tutorials/SDL/05_optimized_surface_loading_and_soft_stretching/index.php)
+* [Lesson 06 Extension Libraries and Loading Other Image Formats](https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
 ## Caution
 
