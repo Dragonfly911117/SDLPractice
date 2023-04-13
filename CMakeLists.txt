@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 project(SDLPractice)
 
 set(CMAKE_CXX_STANDARD 17)
+set(VCPKG_TARGET_TRIPLET x64-windows)
 
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)
