@@ -13,6 +13,7 @@
 * [Lesson 05 Optimized Surface Loading and Soft Stretching](https://lazyfoo.net/tutorials/SDL/05_optimized_surface_loading_and_soft_stretching/index.php)
 * [Lesson 06 Extension Libraries and Loading Other Image Formats](https://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 * [Lesson 07 Texture Loading and Rendering](https://lazyfoo.net/tutorials/SDL/07_texture_loading_and_rendering/index.php)
+* [Lesson 08 Geometry Rendering](https://lazyfoo.net/tutorials/SDL/08_geometry_rendering/index.php)
 
 ## Caution
 
