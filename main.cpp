@@ -14,21 +14,16 @@ int main(int argc, char*argv[]) {
     SDL_Renderer*renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     SDL_Surface*image = IMG_Load("C:\\Users\\DF\\CLionProjects\\SDLPractice\\resource\\image.png");
+    if (image == nullptr) {
+        SDL_Log("Failed to load image: %s", IMG_GetError());
+        return -1;
+    }
+    SDL_SetColorKey(image, SDL_TRUE, SDL_MapRGB(image->format, 0x5C, 0x8A, 0xA2));
     SDL_Texture*texture = SDL_CreateTextureFromSurface(renderer, image);
     SDL_FreeSurface(image);
 
-    SDL_Rect rect = {0, 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
-    SDL_RenderSetViewport(renderer, &rect);
     SDL_RenderCopy(renderer, texture, nullptr, nullptr);
 
-
-    rect = {WINDOW_WIDTH / 2, 0, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
-    SDL_RenderSetViewport(renderer, &rect);
-    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
-
-    rect = {0, WINDOW_HEIGHT / 2, WINDOW_WIDTH, WINDOW_HEIGHT / 2};
-    SDL_RenderSetViewport(renderer, &rect);
-    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
 
 
     SDL_RenderPresent(renderer);
