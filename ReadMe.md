@@ -18,7 +18,7 @@
 
 ## Caution
 
-* As [here](https://blog.jetbrains.com/clion/2023/01/support-for-vcpkg-in-clion/) metioned, many toolchains can not be
+* As [here](https://blog.jetbrains.com/clion/2023/01/support-for-vcpkg-in-clion/) mentioned, many toolchains can not be
   used (Basically, Use native toolchains, not something attached from VM or Remote).
 * If you are using vcpkg, you should add `set(VCPKG_TARGET_TRIPLET x64-windows)` to your CMakeLists.txt. (x64-windows is
   the default triplet, you can change it to x64-linux or x64-osx)
