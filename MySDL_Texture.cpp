@@ -5,18 +5,13 @@
 #include "MySDL_Texture.h"
 #include "SDL_render.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "config.h"
 
 MySDL_Texture::MySDL_Texture() {
     _texture = nullptr;
     _width = 0;
     _height = 0;
-    _walkClips.resize(_walkAnimationFrames);
-    for (int i = 0; i < _walkAnimationFrames; i++) {
-        _walkClips[i].x = i * 64;
-        _walkClips[i].y = 0;
-        _walkClips[i].w = 64;
-        _walkClips[i].h = 205;
-    }
     return;
 }
 
@@ -32,8 +27,8 @@ bool MySDL_Texture::loadFromFile(const std::string& path, SDL_Renderer* renderer
         SDL_Log("Failed to load image: %s", IMG_GetError());
         return false;
     }
-    _width = image->w;
-    _height = image->h;
+    _width = fmin(image->w, WINDOW_WIDTH);
+    _height = fmin(image->h, WINDOW_HEIGHT);
     SDL_SetColorKey( image, SDL_TRUE, SDL_MapRGB( image->format, 0, 0xFF, 0xFF ) );
     _texture = SDL_CreateTextureFromSurface(renderer, image);
     if (_texture == nullptr) {
@@ -60,35 +55,67 @@ MySDL_Texture::render(const int& x, const int& y, SDL_Renderer* renderer, SDL_Re
         SDL_Log("Texture is null");
         return;
     }
+    if (renderer == nullptr) {
+        SDL_Log("Renderer is null");
+        return;
+    }
     SDL_Rect rect = {x, y, _width, _height};
-    SDL_RenderCopyEx(renderer, _texture, &_walkClips.at(_currentFrame), &rect, angle, center, flip);
+    if (clip != nullptr) {
+        rect.h = clip->h;
+        rect.w = clip->w;
+    }
+    SDL_RenderCopyEx(renderer, _texture, clip, &rect, angle, center, flip);
     SDL_RenderPresent(renderer);
 
     return;
 }
 
-int MySDL_Texture::getWidth() {
+int MySDL_Texture::getWidth() const{
     return _width;
 }
 
-int MySDL_Texture::getHeight() {
+int MySDL_Texture::getHeight() const{
     return _height;
 }
 
-void MySDL_Texture::toggleAnimation() {
-    setFrame(_currentFrame + 1);
+
+void MySDL_Texture::setAlpha(const Uint8& alpha) {
+    _alpha = alpha;
+    _color.a = alpha;
 }
 
-void MySDL_Texture::setFrame(int frame) {
-    if (frame >= _walkAnimationFrames) {
-        _currentFrame = 0;
-    } else {
-        _currentFrame = frame;
+void MySDL_Texture::setBlendMode(SDL_BlendMode blendMode) {
+    _blendMode = blendMode;
+}
+
+void MySDL_Texture::setColor(const Uint8& red, const Uint8& green, const Uint8& blue) {
+    _color.r = red;
+    _color.g = green;
+    _color.b = blue;
+    _color.a = _alpha;
+}
+
+bool MySDL_Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer) {
+    free();
+    TTF_Font* font = TTF_OpenFont("C:\\Windows\\Fonts\\Inkfree.ttf", 400);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
+    if (textSurface == nullptr){
+        SDL_Log("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+        return false;
     }
-}
-
-int MySDL_Texture::getFrame() const {
-    return _currentFrame;
+    else {
+        _texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        if (_texture == nullptr){
+            SDL_Log("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+        }
+        else {
+            _width = 500;
+            _height = 300;
+        }
+        SDL_FreeSurface(textSurface);
+    }
+    TTF_CloseFont(font);
+    return true;
 }
 
 
