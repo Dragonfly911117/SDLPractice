@@ -10,8 +10,8 @@
 
 MySDL_Texture::MySDL_Texture() {
     _texture = nullptr;
-    _width = 0;
-    _height = 0;
+    _width = 1000;
+    _height = 100;
     return;
 }
 
@@ -42,8 +42,8 @@ void MySDL_Texture::free() {
     if (_texture != nullptr) {
         SDL_DestroyTexture(_texture);
         _texture = nullptr;
-        _width = 0;
-        _height = 0;
+//        _width = 1000;
+//        _height = 100;
     }
     return;
 }
@@ -95,10 +95,20 @@ void MySDL_Texture::setColor(const Uint8& red, const Uint8& green, const Uint8& 
     _color.a = _alpha;
 }
 
-bool MySDL_Texture::loadFromRenderedText(std::string textureText, SDL_Color textColor, SDL_Renderer* renderer) {
+
+
+void MySDL_Texture::setText(const std::string& text) {
+    _text = text;
+}
+
+std::string MySDL_Texture::getText() const {
+    return _text;
+}
+
+bool MySDL_Texture::loadFromRenderedText( SDL_Renderer* renderer) {
     free();
     TTF_Font* font = TTF_OpenFont("C:\\Windows\\Fonts\\Inkfree.ttf", 400);
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, _text.c_str(), _color);
     if (textSurface == nullptr){
         SDL_Log("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
         return false;
@@ -108,14 +118,20 @@ bool MySDL_Texture::loadFromRenderedText(std::string textureText, SDL_Color text
         if (_texture == nullptr){
             SDL_Log("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
         }
-        else {
-            _width = 500;
-            _height = 300;
-        }
         SDL_FreeSurface(textSurface);
     }
     TTF_CloseFont(font);
     return true;
 }
+
+void MySDL_Texture::setHeight(const int& height) {
+    _height = height;
+}
+
+void MySDL_Texture::setWidth(const int& width) {
+    _width = width;
+}
+
+
 
 
