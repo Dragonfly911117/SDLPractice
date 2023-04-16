@@ -16,7 +16,7 @@
 * [Lesson 08 Geometry Rendering](https://lazyfoo.net/tutorials/SDL/08_geometry_rendering/index.php)
 * [Lesson 09 Clip Rendering and Sprite Sheets](https://lazyfoo.net/tutorials/SDL/09_clip_rendering_and_sprite_sheets/index.php)
 * [Lesson 10 Color Keying](https://lazyfoo.net/tutorials/SDL/10_color_keying/index.php)
-* ![Render text on surface](\resource\img.png)
+* ![Render text on surface](/resource/img.png)
 
 ## Caution
 
