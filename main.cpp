@@ -74,8 +74,11 @@ int main(int argc, char* argv[]) {
             ss << "FPS: " << fps;
             fpsText.setText(ss.str());
             fpsText.loadFromRenderedText(renderer);
+            SDL_RenderClear(renderer);
             background.render(0, 0, renderer);
-            text.render(0, 0, renderer);
+            if (!text.getText().empty()) {
+                text.render(0, 0, renderer);
+            }
             if (!lastHitTimer.getText().empty())
                 lastHitTimer.render(0, WINDOW_HEIGHT - lastHitTimer.getHeight(), renderer);
             fpsText.render(WINDOW_WIDTH - fpsText.getWidth(), 0, renderer);

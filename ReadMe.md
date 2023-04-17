@@ -24,3 +24,5 @@
   used (Basically, Use native toolchains, not something attached from VM or Remote).
 * If you are using vcpkg, you should add `set(VCPKG_TARGET_TRIPLET x64-windows)` to your CMakeLists.txt. (x64-windows is
   the default triplet, you can change it to x64-linux or x64-osx)
+* Set the working directory to the root of the project so the program can find the resources.
+  ![img.png](resource/RunDebugConfing.png)
