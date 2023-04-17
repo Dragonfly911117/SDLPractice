@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
                                           WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     MySDL_Texture background;
-    background.loadFromFile("C:\\Users\\DF\\CLionProjects\\SDLPractice\\resource\\image.png", renderer);
+    background.loadFromFile("resource/image.png", renderer);
     background.render(0, 0, renderer);
 
     MySDL_Texture text;
@@ -59,12 +59,13 @@ int main(int argc, char* argv[]) {
                     background.render(0, 0, renderer);
                     text.render(0, 0, renderer);
                     ss.str("");
-                    ss << "Milliseconds since start time: " << SDL_GetTicks() - startTime;
+                    ss << "Milliseconds since last hit: " << SDL_GetTicks() - startTime;
                     startTime = SDL_GetTicks();
                     lastHitTimer.setText(ss.str());
                     lastHitTimer.loadFromRenderedText(renderer);
                     lastHitTimer.render(0, WINDOW_HEIGHT - lastHitTimer.getHeight(), renderer);
                     fpsText.render(WINDOW_WIDTH - fpsText.getWidth(), 0, renderer);
+                    SDL_RenderPresent(renderer);
                 }
             }
         }
@@ -80,6 +81,7 @@ int main(int argc, char* argv[]) {
             fpsText.render(WINDOW_WIDTH - fpsText.getWidth(), 0, renderer);
             fps = 0;
             lastTime = SDL_GetTicks();
+            SDL_RenderPresent(renderer);
         }
         fps++;
     }

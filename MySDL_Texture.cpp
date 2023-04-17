@@ -12,6 +12,9 @@ MySDL_Texture::MySDL_Texture() {
     _texture = nullptr;
     _width = 1000;
     _height = 100;
+    _blendMode = SDL_BLENDMODE_BLEND;
+    _color = {0, 0, 0, 255};
+    _text = "Hello World!";
     return;
 }
 
@@ -65,7 +68,6 @@ MySDL_Texture::render(const int& x, const int& y, SDL_Renderer* renderer, SDL_Re
         rect.w = clip->w;
     }
     SDL_RenderCopyEx(renderer, _texture, clip, &rect, angle, center, flip);
-    SDL_RenderPresent(renderer);
 
     return;
 }
@@ -80,7 +82,6 @@ int MySDL_Texture::getHeight() const{
 
 
 void MySDL_Texture::setAlpha(const Uint8& alpha) {
-    _alpha = alpha;
     _color.a = alpha;
 }
 
@@ -92,7 +93,6 @@ void MySDL_Texture::setColor(const Uint8& red, const Uint8& green, const Uint8& 
     _color.r = red;
     _color.g = green;
     _color.b = blue;
-    _color.a = _alpha;
 }
 
 
@@ -107,7 +107,10 @@ std::string MySDL_Texture::getText() const {
 
 bool MySDL_Texture::loadFromRenderedText( SDL_Renderer* renderer) {
     free();
-    TTF_Font* font = TTF_OpenFont("C:\\Windows\\Fonts\\Inkfree.ttf", 400);
+    char fontPath[64] = {0};
+     strcat(fontPath, FONT_DIR);
+     strcat(fontPath, "Inkfree.ttf");
+    TTF_Font* font = TTF_OpenFont(fontPath, 400);
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, _text.c_str(), _color);
     if (textSurface == nullptr){
         SDL_Log("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());

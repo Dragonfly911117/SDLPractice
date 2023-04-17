@@ -37,7 +37,6 @@ public:
 
 private:
     SDL_Texture* _texture;
-    Uint8 _alpha;
     SDL_BlendMode _blendMode;
     SDL_Color _color;
     int _width;
